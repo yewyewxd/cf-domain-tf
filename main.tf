@@ -14,16 +14,6 @@ variable "api_token" {
   sensitive   = true
 }
 
-variable "domain_name" {
-  description = "The domain name (e.g., example.com)"
-  type        = string
-}
-
-variable "account_id" {
-  description = "Your Cloudflare Account ID"
-  type        = string
-}
-
 variable "zone_id" {
   description = "Your Cloudflare domain's Zone ID"
   type        = string
@@ -100,34 +90,3 @@ resource "cloudflare_ruleset" "rate_limiting" {
     }
   }]
 }
-
-# 6. Email Routing
-
-# A. Enable Email Routing
-resource "cloudflare_email_routing_settings" "main" {
-  zone_id = var.zone_id
-}
-
-# B. Create Routing Rule
-resource "cloudflare_email_routing_rule" "hello_forwarding" {
-  zone_id = var.zone_id
-  name    = "Email routing from domain email to gmail"
-  enabled = true
-
-  matchers = [{
-    type  = "literal"
-    field = "to"
-    value = "hello@${var.domain_name}"
-    },
-    {
-      type  = "literal"
-      field = "to"
-      value = "support@${var.domain_name}"
-  }]
-
-  actions = [{
-    type  = "forward"
-    value = [var.forward_to_email]
-  }]
-}
-
