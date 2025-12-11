@@ -1,0 +1,5 @@
+api_token        = "your_api_token"
+domain_name      = "domain.com"
+account_id       = "your_account_token"
+zone_id          = "your_domain_zone_id"
+forward_to_email = "email_routing_destination"
