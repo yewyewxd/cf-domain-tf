@@ -117,9 +117,10 @@ terraform apply
 - <b>Sending as custom email</b>
 
   1. Go to `App passwords` in Google and create `custom@mail.com app password for gmail`, save the password
-  2. In Gmail, See all Settings, Accounts and Import, `add another email address` below Send email as
-  3. SMTP Server: `smtp.gmail.com`, Port: `587` (default)
-  4. Username: `the current gmail`
-  5. Password: `the app password created`
-  6. Test sending email from the custom email
-  7. Optional: In Gmail, See all Settings, Filters and ..., whatever email sent to custom email will be labeled
+  2. In Gmail, See all Settings, Accounts and Import, `add another email address` below "**Send mail as**"
+  3. Email address: your custom email, Treat as an alias: Check (Yes)
+  4. SMTP Server: `smtp.gmail.com`, Port: `587` (default)
+  5. Username: `the current gmail`
+  6. Password: `the app password created`
+  7. Test sending email from the custom email
+  8. Optional: In Gmail, See all Settings, Filters and ..., whatever email sent to custom email will be labeled
