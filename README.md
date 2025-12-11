@@ -108,9 +108,11 @@ terraform apply
 
 - <b>Receiving at custom email</b>
 
-  1. Add destination address
-  2. Verify at destination address
-  3. Test an email sent to the custom email
+  1. Add a destination address at `Destination addresses`
+  2. Verify your email address at the email's inbox
+  3. Create a custom address in the `Custom addresses` section in `Routing rules`
+  4. Pick an alias (hello@...), Action should be `Send to an email`, and select your destination email address
+  5. Send a test email to the custom email address you created
 
 - <b>Sending as custom email</b>
 
