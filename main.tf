@@ -53,26 +53,18 @@ resource "cloudflare_zone_setting" "https_always" {
   value      = "on"
 }
 
-# 3. Speed: Browser Insights (RUM)
-resource "cloudflare_zone_setting" "rum" {
-  zone_id    = var.zone_id
-  setting_id = "browser_insights"
-  value      = "on"
-}
 
-# 4. DNSSEC
+# 3. DNSSEC
 resource "cloudflare_zone_dnssec" "main" {
   zone_id             = var.zone_id
   dnssec_multi_signer = true
   status              = "active"
 }
 
-# 5. Page Shield
-# pass
 
 # --- WAF Rules ---
 
-# 6. Block Script Kiddies
+# 4. Block Script Kiddies
 resource "cloudflare_ruleset" "zone_waf" {
   zone_id = var.zone_id
   name    = "Custom rules"
@@ -83,12 +75,12 @@ resource "cloudflare_ruleset" "zone_waf" {
     action      = "block"
     description = "Block script kiddie"
     enabled     = true
-    expression  = "(http.request.uri.path contains \".php\") or (http.request.uri.path contains \".txt\") or (http.request.uri.path contains \".json\")"
+    expression  = "(http.request.uri.path contains \".php\") or (http.request.uri.path contains \".json\")"
     }
   ]
 }
 
-# 7. Rate Limiting
+# 5. Rate Limiting
 resource "cloudflare_ruleset" "rate_limiting" {
   zone_id = var.zone_id
   name    = "Rate limiting rules"
@@ -101,7 +93,7 @@ resource "cloudflare_ruleset" "rate_limiting" {
     enabled     = true
     expression  = "(http.request.uri.path contains \"/api\")"
     ratelimit = {
-      characteristics     = ["ip.src"]
+      characteristics     = ["ip.src", "cf.colo.id"]
       period              = 10
       requests_per_period = 25
       mitigation_timeout  = 10
@@ -109,7 +101,7 @@ resource "cloudflare_ruleset" "rate_limiting" {
   }]
 }
 
-# 8. Email Routing
+# 6. Email Routing
 
 # A. Enable Email Routing
 resource "cloudflare_email_routing_settings" "main" {
@@ -139,38 +131,3 @@ resource "cloudflare_email_routing_rule" "hello_forwarding" {
   }]
 }
 
-# C. DNS Records
-resource "cloudflare_dns_record" "email_mx_1" {
-  zone_id  = var.zone_id
-  name     = "@"
-  type     = "MX"
-  content  = "route1.mx.cloudflare.net"
-  priority = 90
-  ttl      = 3600
-}
-
-resource "cloudflare_dns_record" "email_mx_2" {
-  zone_id  = var.zone_id
-  name     = "@"
-  type     = "MX"
-  content  = "route2.mx.cloudflare.net"
-  priority = 40
-  ttl      = 3600
-}
-
-resource "cloudflare_dns_record" "email_mx_3" {
-  zone_id  = var.zone_id
-  name     = "@"
-  type     = "MX"
-  content  = "route3.mx.cloudflare.net"
-  priority = 5
-  ttl      = 3600
-}
-
-resource "cloudflare_dns_record" "email_spf" {
-  zone_id = var.zone_id
-  name    = "@"
-  type    = "TXT"
-  content = "v=spf1 include:_spf.mx.cloudflare.net ~all"
-  ttl     = 3600
-}
