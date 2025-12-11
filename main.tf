@@ -19,11 +19,6 @@ variable "zone_id" {
   type        = string
 }
 
-variable "forward_to_email" {
-  description = "Destination email for routing"
-  type        = string
-}
-
 # --- PROVIDER ---
 provider "cloudflare" {
   api_token = var.api_token
