@@ -28,9 +28,7 @@ terraform -version
 1. Connect a domain
 2. Complete the setup with default settings
 3. Continue to Activation
-4. Go to the `DNS` &rarr; `Settings`
-5. Remove all `MX` and `TXT` records
-6. Refer to `./terraform.tfvars.example` in this project and get all the credentials you need.
+4. Refer to `./terraform.tfvars.example` in this project and get all the credentials you need.
 
 - `api_token`: Create one on _Account API Tokens_ (Ctrl+K and search for this).
   &rarr; **Template:** Edit zone DNS (Use template)
@@ -106,6 +104,7 @@ terraform apply
 ##### 3. Email (optional):
 
 - Enable **Email Routing** (auto add MX records)
+- You may need to remove all conflicting `MX`, `TXT` records in the `DNS` settings if your domain comes with some default values.
 
 - <b>Receiving at custom email</b>
 
