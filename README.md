@@ -122,5 +122,6 @@ terraform apply
   4. SMTP Server: `smtp.gmail.com`, Port: `587` (default)
   5. Username: `the current gmail`
   6. Password: `the app password created`
-  7. Test sending email from the custom email
-  8. Optional: In Gmail, See all Settings, Filters and ..., whatever email sent to custom email will be labeled
+  7. After finishing, click on the Gmail Confirmation sent to your current gmail.
+  8. Test sending email from the custom email
+  9. Optional: In Gmail, See all Settings, Filters and ..., whatever email sent to custom email will be labeled
